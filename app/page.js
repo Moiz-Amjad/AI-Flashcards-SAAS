@@ -8,13 +8,13 @@ export default function Home() {
   return (
       <Container maxWidth="lg">
           <Head>
-              <title>Flashcard SaaS</title>
+              <title>Moel AI</title>
               <meta name="description" content="Create flashcards from your text" />
           </Head>
           <AppBar position="static">
               <Toolbar>
                   <Typography variant="h6" style={{flexGrow:1}}>
-                    Flashcard SaaS</Typography>
+                    Moel AI</Typography>
                   <SignedOut>
                     <Button color="inherit"> Login</Button>
                     <Button color="inherit"> Sign Up</Button>
@@ -31,7 +31,7 @@ export default function Home() {
               my: 4,
 
             }}>
-            <Typography variant ="h2"> Welcome to Flashcard SaaS</Typography>
+            <Typography variant ="h2"> Welcome to Moel AI</Typography>
             <Typography variant ="h6"> 
               {' '}
               The easiest way to make flashcards from your text
