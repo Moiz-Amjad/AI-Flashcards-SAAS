@@ -1,5 +1,5 @@
-import {NextResponse} from 'next/server'
-import OpenAI from 'openai' 
+import { NextResponse } from "next/server";
+import OpenAI from "openai";
 
 const systemPrompt = `
 Task: Create flashcards
@@ -31,20 +31,30 @@ Return in the following JSON format
 `;
 
 export async function POST(req) {
-    const openai = OpenAI();
+  try {
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY, // Ensure API key is set
+    });
+
     const data = await req.text();
 
     const completion = await openai.chat.completion.create({
-        messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: data },
-        ],
-        model: 'gpt-4',
-        response_format: 'json',
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: data },
+      ],
+      model: "gpt-4",
+      response_format: "json",
     });
 
     const flashcards = JSON.parse(completion.choices[0].message.content);
 
-    return NextResponse.json(flashcards.flashcard);
+    return NextResponse.json(flashcards.flashcards);
+  } catch (error) {
+    console.error("Error generating flashcards:", error);
+    return NextResponse.json(
+      { error: "Failed to generate flashcards" },
+      { status: 500 }
+    );
+  }
 }
-
